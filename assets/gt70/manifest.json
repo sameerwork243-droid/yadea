@@ -1,0 +1,190 @@
+{
+  "product": "YADEA GT70",
+  "colour": "Starry Black",
+  "campaign": "gt70",
+  "project": "gt70-campaign",
+  "generatedAt": "2026-09-26",
+  "stage": "hero-delivered-remaining-clips-pending",
+  "flow": {
+    "account": "sameerwork243@gmail.com",
+    "model": "Veo 3.1 - Quality",
+    "ratio": "16:9",
+    "durationSec": 8,
+    "quantity": 1,
+    "connected": true,
+    "referenceUploadVerified": false,
+    "notes": [
+      "Prompt entry is validated: the Flow prompt box is a ProseMirror editor typed character-by-character, so submissions are capped at roughly 900 characters. Compact prompts in flow/prompts.md are what get submitted.",
+      "The reference image could not be confirmed as attached from the DOM - flow_discover_ui navigates back to the dashboard root and does not expose the frame slot. Confirm visually in the Flow window before treating a render as reference-conditioned.",
+      "The Generate control could not be resolved by the automation selector across three attempts, so generation requires one manual click in the open Chrome window."
+    ]
+  },
+  "target": {
+    "fps": 30,
+    "frameRateMode": "constant",
+    "videoCodec": "h264",
+    "pixelFormat": "yuv420p",
+    "containerFlags": ["+faststart"],
+    "webCodec": "vp9",
+    "mobileMaxWidth": 960
+  },
+  "references": [
+    {
+      "id": "front-45",
+      "file": "references/gt70-front-45.png",
+      "uploadVariant": "references/flow-upload/gt70-front-45-16x9.jpg",
+      "width": 7680,
+      "height": 4801
+    },
+    {
+      "id": "side-180",
+      "file": "references/gt70-side-180.png",
+      "uploadVariant": "references/flow-upload/gt70-side-180-16x9.jpg",
+      "width": 7680,
+      "height": 5008
+    }
+  ],
+  "videos": [
+    {
+      "id": "hero",
+      "chapter": "Hero",
+      "role": "ambient",
+      "status": "approved",
+      "reference": "front-45",
+      "provenance": "Supplied as a 299-frame JPEG sequence (ezgif-frame-001..299.jpg, 2560x1440) in the 'gt70 flow' folder, not a direct video download.",
+      "source": "assets/gt70/flow/raw/hero-frames.mp4",
+      "processed": "public/videos/gt70/hero/hero-30fps.mp4",
+      "mobile": "public/videos/gt70/hero/hero-mobile-30fps.mp4",
+      "poster": "public/videos/gt70/hero/poster.webp",
+      "thumbnail": "assets/gt70/thumbnails/hero-thumb.webp",
+      "qc": {
+        "sourceFps": 30,
+        "outputFps": 30,
+        "constantFrameRate": true,
+        "resolution": "1920x1080",
+        "mobileResolution": "960x540",
+        "frameCount": 299,
+        "durationSec": 9.966667,
+        "codec": "h264",
+        "pixelFormat": "yuv420p",
+        "colorRange": "tv",
+        "faststart": true,
+        "desktopBytes": 6326176,
+        "mobileBytes": 839000,
+        "rangeRemapVerified": "SSIM 0.9935 against the full-range source after remapping",
+        "technicalQc": "pass",
+        "visualQc": "pending-human-watch-through"
+      }
+    },
+    {
+      "id": "orbit",
+      "chapter": "Product reveal",
+      "role": "scrub",
+      "status": "pending",
+      "reference": "side-180",
+      "source": null,
+      "processed": null,
+      "mobile": null,
+      "poster": "public/videos/gt70/orbit/poster.webp",
+      "thumbnail": "assets/gt70/thumbnails/orbit-thumb.webp",
+      "qc": null
+    },
+    {
+      "id": "detail",
+      "chapter": "Design",
+      "role": "background",
+      "status": "pending",
+      "reference": "front-45",
+      "source": null,
+      "processed": null,
+      "mobile": null,
+      "poster": "public/videos/gt70/detail/poster.webp",
+      "thumbnail": "assets/gt70/thumbnails/detail-thumb.webp",
+      "qc": null,
+      "note": "Held back from the homepage by design - the design chapter stays static per the brief's video-budget rule."
+    },
+    {
+      "id": "urban",
+      "chapter": "Urban mobility",
+      "role": "background",
+      "status": "pending",
+      "reference": "side-180",
+      "source": null,
+      "processed": null,
+      "mobile": null,
+      "poster": "public/videos/gt70/urban/poster.webp",
+      "thumbnail": "assets/gt70/thumbnails/urban-thumb.webp",
+      "qc": null
+    },
+    {
+      "id": "technology",
+      "chapter": "Engineering",
+      "role": "background",
+      "status": "pending",
+      "reference": "front-45",
+      "source": null,
+      "processed": null,
+      "mobile": null,
+      "poster": "public/videos/gt70/technology/poster.webp",
+      "thumbnail": "assets/gt70/thumbnails/technology-thumb.webp",
+      "qc": null,
+      "note": "No numerical specifications may appear in frame; none are published for this model."
+    },
+    {
+      "id": "battery",
+      "chapter": "Electric power",
+      "role": "background",
+      "status": "pending",
+      "reference": "front-45",
+      "source": null,
+      "processed": null,
+      "mobile": null,
+      "poster": "public/videos/gt70/battery/poster.webp",
+      "thumbnail": "assets/gt70/thumbnails/battery-thumb.webp",
+      "qc": null,
+      "note": "Held back from the homepage by design - the electric chapter stays static per the brief's video-budget rule."
+    },
+    {
+      "id": "night",
+      "chapter": "Evening",
+      "role": "background",
+      "status": "pending",
+      "reference": "front-45",
+      "source": null,
+      "processed": null,
+      "mobile": null,
+      "poster": "public/videos/gt70/night/poster.webp",
+      "thumbnail": "assets/gt70/thumbnails/night-thumb.webp",
+      "qc": null
+    },
+    {
+      "id": "final",
+      "chapter": "Final call to action",
+      "role": "cta",
+      "status": "pending",
+      "reference": "front-45",
+      "source": null,
+      "processed": null,
+      "mobile": null,
+      "poster": "public/videos/gt70/final/poster.webp",
+      "thumbnail": "assets/gt70/thumbnails/final-thumb.webp",
+      "qc": null
+    }
+  ],
+  "pipeline": {
+    "prompts": "assets/gt70/flow/prompts.md",
+    "normalise": "scripts/gt70-normalize.mjs",
+    "qc": "scripts/gt70-video-qc.mjs",
+    "siteManifest": "src/content/gt70Videos.ts",
+    "rawDir": "assets/gt70/flow/raw",
+    "approvedDir": "assets/gt70/flow/approved",
+    "rejectedDir": "assets/gt70/flow/rejected",
+    "processedDir": "assets/gt70/processed/30fps"
+  },
+  "verification": {
+    "pipelineSelfTest": "pass",
+    "selfTestDetail": "Synthetic 24fps CFR input resampled to true constant 30fps and passed QC; an already-conformant 30fps h264/yuv420p input was copied byte-identical rather than re-encoded. Self-test artifacts were removed.",
+    "visualApproval": "not-performed",
+    "visualApprovalNote": "Technical conformance is automated. Vehicle-identity review against the QC gate in flow/prompts.md requires a human watch-through."
+  }
+}

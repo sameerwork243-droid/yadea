@@ -1,26 +1,490 @@
 @import "tailwindcss";
 
-:root {
-  --background: #ffffff;
-  --foreground: #171717;
+/* =========================================================================
+   YADEA PAKISTAN — DESIGN SYSTEM
+   Premium electric mobility. Warm-light editorial surfaces (ivory, warm
+   white, soft grey, ice blue) with the official YADEA orange as the single
+   accent.
+
+   Cultural rule: the UI is light-surfaced. White type on a black ground is
+   never used as a visual language, so surfaces stay warm and pale and the
+   ink scale runs dark-on-light. Dark navy exists only as a sparing accent
+   band, never as the dominant field. Cinematic video may be dark, but text
+   is never set light-on-dark over it — see Hero.tsx / Gt70Film.tsx.
+   ========================================================================= */
+
+@theme {
+  /* ---- Surfaces: ivory -> raised -> hover (never pure white, never black) */
+  --color-paper: #faf7f2;
+  --color-paper-2: #f2ede5;
+  --color-paper-3: #e7e0d5;
+  --color-silver: #d5ccbf;
+  --color-silver-2: #bfb4a4;
+  --color-ice: #e8f0f6;
+  --color-ice-2: #d6e5ef;
+
+  /* ---- Ink: dark type on light surfaces. All four clear WCAG AA on --paper. */
+  --color-ink: #1c1714;
+  --color-ink-2: #4b423b;
+  --color-ink-3: #5f564e;
+  --color-ink-4: #756a61;
+
+  /* ---- Brand accents: official YADEA orange ---- */
+  --color-electric: #eb5f1b;
+  --color-electric-600: #d4520f;
+  /* Darkened for small text on light surfaces: 5.3:1 on --paper. */
+  --color-electric-700: #b3420a;
+  --color-cyan: #1d6fa3;
+  --color-cyan-soft: #6fa8c9;
+  /* Type on a solid orange fill — dark, so it clears contrast on #eb5f1b */
+  --color-on-accent: #150f0b;
+
+  /* ---- Navy: sparing accent band only (footer rule, focus accents) ---- */
+  --color-navy: #16324f;
+  --color-navy-2: #1e4266;
+  --color-navy-ink: #ffffff;
+
+  /* ---- Support ---- */
+  --color-positive: #0e7049;
+  --color-scrim: #0d0a08;
+  --color-line: #00000014;
+  --color-line-2: #0000001f;
+  --color-line-3: #0000002e;
+
+  /* ---- Type ---- */
+  --font-display: var(--font-inter-tight), ui-sans-serif, system-ui, sans-serif;
+  --font-sans: var(--font-inter), ui-sans-serif, system-ui, sans-serif;
+  --font-mono: var(--font-jetbrains), ui-monospace, monospace;
+
+  /* ---- Motion ---- */
+  --ease-out-expo: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out-quart: cubic-bezier(0.76, 0, 0.24, 1);
+  --ease-out-soft: cubic-bezier(0.22, 0.61, 0.36, 1);
+
+  /* ---- Layout ---- */
+  --spacing-section: 6rem;
+  --radius-card: 1.25rem;
 }
 
-@theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
-
-@media (prefers-color-scheme: dark) {
+/* Fluid section rhythm. The declarations need a selector -- a bare custom
+   property directly inside @media is invalid CSS. */
+@media (min-width: 768px) {
   :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+    --spacing-section: 8.5rem;
+  }
+}
+@media (min-width: 1280px) {
+  :root {
+    --spacing-section: 11rem;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@theme inline {
+  --breakpoint-xs: 26rem;
+}
+
+/* ---------------------------------------------------------------- reset */
+@layer base {
+  * {
+    border-color: var(--color-line);
+  }
+
+  html {
+    color-scheme: light;
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
+    /* The paper wash lives on the root element, not on <body>. The scroll-driven
+       GT70 backdrop is a fixed layer at z-index -10, which paints *behind* its
+       parent's background; an opaque body colour would hide it completely.
+       Painting the canvas from <html> leaves <body> transparent, so the backdrop
+       reads through the whole page while the canvas still starts paper. */
+    background-color: var(--color-paper);
+  }
+
+  body {
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    font-feature-settings: "cv02", "cv03", "cv04", "ss01";
+    text-rendering: optimizeLegibility;
+    overflow-x: clip;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    font-family: var(--font-display);
+    font-weight: 600;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+
+  ::selection {
+    background: var(--color-electric);
+    color: var(--color-on-accent);
+  }
+
+  :focus-visible {
+    outline: 2px solid var(--color-electric);
+    outline-offset: 3px;
+    border-radius: 4px;
+  }
+
+  /* Inputs inherit the system so forms never look bolted on */
+  input,
+  select,
+  textarea,
+  button {
+    font: inherit;
+    color: inherit;
+  }
+}
+
+/* ------------------------------------------------------------ utilities */
+@layer components {
+  .container-x {
+    width: 100%;
+    margin-inline: auto;
+    max-width: 90rem;
+    padding-inline: 1.25rem;
+  }
+  @media (min-width: 768px) {
+    .container-x {
+      padding-inline: 2.5rem;
+    }
+  }
+  @media (min-width: 1280px) {
+    .container-x {
+      padding-inline: 3.5rem;
+    }
+  }
+  .section-y {
+    padding-block: var(--spacing-section);
+  }
+}
+
+/* Editorial display scale — fluid, tight, high-impact */
+@utility display-xl {
+  font-family: var(--font-display);
+  font-size: clamp(2.75rem, 8.2vw, 7.5rem);
+  line-height: 0.92;
+  letter-spacing: -0.045em;
+  font-weight: 600;
+}
+
+@utility display-lg {
+  font-family: var(--font-display);
+  font-size: clamp(2.25rem, 5.4vw, 4.5rem);
+  line-height: 0.98;
+  letter-spacing: -0.038em;
+  font-weight: 600;
+}
+
+@utility display-md {
+  font-family: var(--font-display);
+  font-size: clamp(1.75rem, 3.4vw, 2.875rem);
+  line-height: 1.05;
+  letter-spacing: -0.032em;
+  font-weight: 600;
+}
+
+@utility display-sm {
+  font-family: var(--font-display);
+  font-size: clamp(1.25rem, 2vw, 1.625rem);
+  line-height: 1.18;
+  letter-spacing: -0.024em;
+  font-weight: 600;
+}
+
+/* Technical micro-label — the "instrument" voice of the brand */
+@utility label-tech {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: var(--color-ink-3);
+}
+
+@utility label-tech-light {
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
+  line-height: 1;
+  font-weight: 500;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  color: color-mix(in oklab, var(--color-navy-ink) 72%, transparent);
+}
+
+@utility num-hero {
+  font-family: var(--font-display);
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+  letter-spacing: -0.05em;
+  font-weight: 600;
+}
+
+@utility body-lg {
+  font-size: clamp(1.0625rem, 1.15vw, 1.25rem);
+  line-height: 1.6;
+  color: var(--color-ink-2);
+}
+
+@utility body-md {
+  font-size: 0.9375rem;
+  line-height: 1.65;
+  color: var(--color-ink-2);
+}
+
+/* Hairline rules used instead of boxed cards — keeps density low, cost low */
+@utility rule-t {
+  border-top: 1px solid var(--color-line-2);
+}
+
+@utility glass-light {
+  background: color-mix(in oklab, #fffdfa 82%, transparent);
+  backdrop-filter: blur(16px) saturate(1.4);
+  -webkit-backdrop-filter: blur(16px) saturate(1.4);
+}
+
+/* ---- Veil variants -------------------------------------------------------
+   The scroll-driven GT70 backdrop lives behind the whole page. These are the
+   translucent counterparts of the field utilities: the same tint and the same
+   gradient, with a paper wash layered on top so the moving footage reads
+   through without dropping body text below its contrast ratio. */
+
+@utility field-aurora-veil {
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in oklab, var(--color-paper) 14%, transparent) 0%,
+      color-mix(in oklab, var(--color-paper) 8%, transparent) 100%
+    ),
+    radial-gradient(
+      120% 90% at 50% 0%,
+      var(--color-ice) 0%,
+      color-mix(in oklab, var(--color-ice) 40%, var(--color-paper)) 44%,
+      var(--color-paper) 80%
+    ),
+    linear-gradient(180deg, var(--color-paper-2) 0%, var(--color-paper) 100%);
+}
+
+@utility field-ice-veil {
+  background:
+    linear-gradient(
+      180deg,
+      color-mix(in oklab, var(--color-paper) 14%, transparent) 0%,
+      color-mix(in oklab, var(--color-paper) 8%, transparent) 100%
+    ),
+    radial-gradient(
+      100% 80% at 80% 10%,
+      color-mix(in oklab, var(--color-electric) 22%, transparent) 0%,
+      transparent 62%
+    ),
+    radial-gradient(
+      90% 70% at 10% 90%,
+      color-mix(in oklab, var(--color-cyan) 14%, var(--color-paper)) 0%,
+      transparent 66%
+    ),
+    linear-gradient(165deg, var(--color-paper) 0%, var(--color-ice) 100%);
+}
+
+@utility field-paper-veil {
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--color-paper) 14%, transparent) 0%,
+    color-mix(in oklab, var(--color-paper) 8%, transparent) 100%
+  );
+}
+
+@utility field-paper-2-veil {
+  background: linear-gradient(
+    180deg,
+    color-mix(in oklab, var(--color-paper-2) 14%, transparent) 0%,
+    color-mix(in oklab, var(--color-paper-2) 8%, transparent) 100%
+  );
+}
+
+/* ------------------------------------------------------- brand surface */
+/* Warm charcoal field with an orange horizon. Never pure black. */
+@utility field-aurora {
+  background:
+    radial-gradient(
+      120% 90% at 50% 0%,
+      var(--color-ice) 0%,
+      color-mix(in oklab, var(--color-ice) 40%, var(--color-paper)) 44%,
+      var(--color-paper) 80%
+    ),
+    linear-gradient(180deg, var(--color-paper-2) 0%, var(--color-paper) 100%);
+}
+
+@utility field-ice {
+  background:
+    radial-gradient(
+      100% 80% at 80% 10%,
+      color-mix(in oklab, var(--color-electric) 22%, transparent) 0%,
+      transparent 62%
+    ),
+    radial-gradient(
+      90% 70% at 10% 90%,
+      color-mix(in oklab, var(--color-cyan) 14%, var(--color-paper)) 0%,
+      transparent 66%
+    ),
+    linear-gradient(165deg, var(--color-paper) 0%, var(--color-ice) 100%);
+}
+
+/* Fine engineering grid — reads as precision, costs nothing */
+@utility grid-fine {
+  background-image:
+    linear-gradient(to right, var(--color-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-line) 1px, transparent 1px);
+  background-size: 72px 72px;
+}
+
+@utility hairline-top {
+  box-shadow: inset 0 1px 0 var(--color-line-2);
+}
+
+/* ---------------------------------------------------------- range input */
+/* Slider fill is driven by an inline --pct custom property set per input. */
+@layer components {
+  .yt-range {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 1.5rem;
+    background: transparent;
+    cursor: grab;
+  }
+  .yt-range:active {
+    cursor: grabbing;
+  }
+  .yt-range::-webkit-slider-runnable-track {
+    height: 3px;
+    border-radius: 999px;
+    background: linear-gradient(
+      to right,
+      var(--color-electric) 0%,
+      var(--color-electric) var(--pct, 50%),
+      var(--color-line-3) var(--pct, 50%),
+      var(--color-line-3) 100%
+    );
+  }
+  .yt-range::-moz-range-track {
+    height: 3px;
+    border-radius: 999px;
+    background: linear-gradient(
+      to right,
+      var(--color-electric) 0%,
+      var(--color-electric) var(--pct, 50%),
+      var(--color-line-3) var(--pct, 50%),
+      var(--color-line-3) 100%
+    );
+  }
+  .yt-range::-webkit-slider-thumb {
+    -webkit-appearance: none;
+    appearance: none;
+    height: 1.125rem;
+    width: 1.125rem;
+    margin-top: -0.41rem;
+    border-radius: 999px;
+    /* Dark thumb: a white thumb disappears against the now-light track. */
+    background: var(--color-ink);
+    border: 1.5px solid var(--color-electric);
+    box-shadow: 0 1px 4px rgb(28 23 20 / 0.28);
+    transition:
+      transform 0.18s var(--ease-out-expo),
+      box-shadow 0.18s var(--ease-out-expo);
+  }
+  .yt-range::-moz-range-thumb {
+    height: 1.125rem;
+    width: 1.125rem;
+    border-radius: 999px;
+    background: var(--color-ink);
+    border: 1.5px solid var(--color-electric);
+    box-shadow: 0 1px 4px rgb(28 23 20 / 0.28);
+    transition:
+      transform 0.18s var(--ease-out-expo),
+      box-shadow 0.18s var(--ease-out-expo);
+  }
+  .yt-range:hover::-webkit-slider-thumb,
+  .yt-range:focus-visible::-webkit-slider-thumb {
+    transform: scale(1.12);
+    box-shadow: 0 2px 10px rgb(235 95 27 / 0.4);
+  }
+  .yt-range:hover::-moz-range-thumb,
+  .yt-range:focus-visible::-moz-range-thumb {
+    transform: scale(1.12);
+    box-shadow: 0 2px 10px rgb(235 95 27 / 0.4);
+  }
+  .yt-range:focus-visible {
+    outline: 2px solid var(--color-electric);
+    outline-offset: 4px;
+    border-radius: 999px;
+  }
+}
+
+/* ---------------------------------------------------------- animations */
+@keyframes yadea-sweep {
+  0% {
+    transform: translateX(-120%);
+  }
+  100% {
+    transform: translateX(220%);
+  }
+}
+
+@keyframes yadea-pulse-ring {
+  0% {
+    transform: scale(0.85);
+    opacity: 0.7;
+  }
+  70% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+@keyframes yadea-marquee {
+  from {
+    transform: translateX(0);
+  }
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+@keyframes yadea-charge {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+/* ------------------------------------------------ reduced motion (a11y) */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
 }

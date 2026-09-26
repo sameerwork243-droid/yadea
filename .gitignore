@@ -39,3 +39,15 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+
+# local dev server logs
+dev.log
+dev.err.log
+
+# raw Google Flow downloads and intermediate encodes — regenerate with
+# scripts/gt70-normalize.mjs rather than committing multi-hundred-MB video.
+# Prompts, the manifest and QC reports under assets/gt70/ stay tracked.
+assets/gt70/flow/raw/
+assets/gt70/flow/approved/
+assets/gt70/flow/rejected/
+assets/gt70/processed/30fps/
