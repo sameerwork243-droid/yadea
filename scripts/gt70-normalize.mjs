@@ -22,6 +22,13 @@ import { join, resolve } from "node:path";
 const TARGET_FPS = 30;
 const MOBILE_MAX_WIDTH = 960;
 const WEBM_CRF = 32;
+/**
+ * GOP length for the delivery encodes, in frames. Every clip is scrubbed
+ * frame-by-frame by scroll position, so seek cost is the dominant playback
+ * characteristic. 6 frames (0.2s) keeps the decoder work per seek small enough
+ * to track a fast scroll; the default 250 costs ~2.4MB more to fix.
+ */
+const SCRUB_GOP = 6;
 
 const args = process.argv.slice(2);
 const positional = args.filter((a) => !a.startsWith("--"));
@@ -139,10 +146,20 @@ if (conformant) {
     "-pix_fmt", "yuv420p",
     "-color_range", "tv",
     "-movflags", "+faststart",
+    // Dense keyframes. This clip is scrubbed frame-by-frame by scroll, so a
+    // seek has to be cheap. Left at x264's default the GOP is 250 frames, which
+    // put 5 keyframes in a 299-frame clip: every seek then had to decode up to
+    // 60 frames forward, the decoder could not keep up with the scroll, and the
+    // picture visibly lagged or froze. A 6-frame GOP bounds the work per seek to
+    // 6 frames for about 2.4MB at this length. -sc_threshold 0 stops scene-cut
+    // detection from stretching the GOP back out again.
+    "-g", String(SCRUB_GOP),
+    "-keyint_min", String(SCRUB_GOP),
+    "-sc_threshold", "0",
     "-an",
     desktop,
   ]);
-  console.log(`master : re-encoded to constant ${TARGET_FPS} fps (crf ${crf})`);
+  console.log(`master : re-encoded to constant ${TARGET_FPS} fps (crf ${crf}, gop ${SCRUB_GOP})`);
 }
 
 ffmpeg([
@@ -154,10 +171,15 @@ ffmpeg([
   "-profile:v", "main",
   "-pix_fmt", "yuv420p",
   "-movflags", "+faststart",
+  // The mobile encode is scrubbed by the same scroll timeline, so it needs the
+  // same short GOP. Matching the desktop keeps the two in step frame for frame.
+  "-g", String(SCRUB_GOP),
+  "-keyint_min", String(SCRUB_GOP),
+  "-sc_threshold", "0",
   "-an",
   mobile,
 ]);
-console.log(`mobile : ${MOBILE_MAX_WIDTH}px wide encode`);
+console.log(`mobile : ${MOBILE_MAX_WIDTH}px wide encode (gop ${SCRUB_GOP})`);
 
 if (has("webm")) {
   ffmpeg([

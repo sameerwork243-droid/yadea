@@ -44,13 +44,15 @@
         "codec": "h264",
         "pixelFormat": "yuv420p",
         "colourRange": "tv",
-        "desktopBytes": 6326176,
-        "mobileBytes": 836999,
+        "desktopBytes": 8824894,
+        "mobileBytes": 1336352,
         "constantFrameRate": true,
+        "keyframes": 50,
+        "maxGopFrames": 6,
         "rangeConversionSsim": 0.9935,
         "verifiedAt": "2026-09-26"
       },
-      "note": "Assembled from a supplied 299-frame 2560x1440 sequence (frames 001-299, contiguous, no gaps or duplicates) at a true constant 30 fps, so playback timing is 1:1 with the source. Frames were full-range yuvj420p, so the master remaps to limited-range yuv420p; verified against the source at SSIM 0.9935. Delivery width capped at 1920 with a 960px mobile encode. Source capture FPS was not supplied and 30 fps was inferred from the 299-frame, ~10s sequence. Technical QC passed; vehicle identity still needs a human watch-through."
+      "note": "Assembled from a supplied 299-frame 2560x1440 sequence (frames 001-299, contiguous, no gaps or duplicates) at a true constant 30 fps, so playback timing is 1:1 with the source. Frames were full-range yuvj420p, so the master remaps to limited-range yuv420p; verified against the source at SSIM 0.9935. Delivery width capped at 1920 with a 960px mobile encode. Source capture FPS was not supplied and 30 fps was inferred from the 299-frame, ~10s sequence. Delivery encodes use a scrub-optimised 6-frame GOP (50 keyframes in 299 frames): this clip is scrubbed frame-by-frame by scroll, and at x264's default 250-frame GOP only 5 keyframes existed, so each seek had to decode up to 60 frames forward, the decoder could not track the scroll, and the picture appeared to lag or freeze. Technical QC passed; vehicle identity still needs a human watch-through."
     },
     {
       "id": "orbit",
