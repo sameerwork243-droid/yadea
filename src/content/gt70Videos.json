@@ -28,7 +28,7 @@
       "reference": "front-45",
       "promptRef": "assets/gt70/flow/prompts.md#01--hero",
       "poster": "/videos/gt70/hero/poster.webp",
-      "posterAlt": "YADEA GT70 electric scooter in Starry Black, front three-quarter view, dark body with orange accent graphics.",
+      "posterAlt": "YADEA GT70 Cyber electric scooter in Starry Black, front three-quarter view.",
       "thumbnail": "/videos/gt70/hero/thumbnail.webp",
       "sources": {
         "desktopMp4": "/videos/gt70/hero/hero-30fps.mp4",
@@ -64,7 +64,7 @@
       "reference": "side-180",
       "promptRef": "assets/gt70/flow/prompts.md#02--orbit",
       "poster": "/videos/gt70/orbit/poster.webp",
-      "posterAlt": "YADEA GT70 electric scooter in Starry Black, full side profile showing the seat, body panels and rear cargo rack.",
+      "posterAlt": "YADEA GT70 Cyber electric scooter in Starry Black, full side profile showing the seat and body panels.",
       "thumbnail": "/videos/gt70/orbit/thumbnail.webp",
       "note": "Scrub source for the scroll-controlled reveal; must be a smooth single-take orbit."
     },
@@ -80,7 +80,7 @@
       "reference": "front-45",
       "promptRef": "assets/gt70/flow/prompts.md#03--detail",
       "poster": "/videos/gt70/design/poster.webp",
-      "posterAlt": "Close view of the YADEA GT70 front bodywork, showing the angular fairing and orange accent graphics.",
+      "posterAlt": "Close view of the YADEA GT70 Cyber front bodywork and fairing.",
       "thumbnail": "/videos/gt70/design/thumbnail.webp"
     },
     {
@@ -111,7 +111,7 @@
       "reference": "side-180",
       "promptRef": "assets/gt70/flow/prompts.md#05--urban",
       "poster": "/videos/gt70/urban/poster.webp",
-      "posterAlt": "YADEA GT70 electric scooter in Starry Black, side profile on an urban street.",
+      "posterAlt": "YADEA GT70 Cyber electric scooter in Starry Black, side profile on an urban street.",
       "thumbnail": "/videos/gt70/urban/thumbnail.webp"
     },
     {
@@ -126,7 +126,7 @@
       "reference": "front-45",
       "promptRef": "assets/gt70/flow/prompts.md#06--technology",
       "poster": "/videos/gt70/technology/poster.webp",
-      "posterAlt": "YADEA GT70 electric scooter in Starry Black, front three-quarter view for the engineering chapter.",
+      "posterAlt": "YADEA GT70 Cyber electric scooter in Starry Black, front three-quarter view for the engineering chapter.",
       "thumbnail": "/videos/gt70/technology/thumbnail.webp",
       "note": "No numerical specifications may appear in frame — none are published for this model."
     },
@@ -142,7 +142,7 @@
       "reference": "front-45",
       "promptRef": "assets/gt70/flow/prompts.md#07--battery",
       "poster": "/videos/gt70/battery/poster.webp",
-      "posterAlt": "YADEA GT70 electric scooter in Starry Black, front three-quarter view for the electric power chapter.",
+      "posterAlt": "YADEA GT70 Cyber electric scooter in Starry Black, front three-quarter view for the electric power chapter.",
       "thumbnail": "/videos/gt70/battery/thumbnail.webp"
     },
     {
@@ -173,7 +173,7 @@
       "reference": "front-45",
       "promptRef": "assets/gt70/flow/prompts.md#09--night",
       "poster": "/videos/gt70/night/poster.webp",
-      "posterAlt": "YADEA GT70 electric scooter in Starry Black, front three-quarter view under evening architectural lighting.",
+      "posterAlt": "YADEA GT70 Cyber electric scooter in Starry Black, front three-quarter view under evening architectural lighting.",
       "thumbnail": "/videos/gt70/night/thumbnail.webp"
     },
     {
@@ -188,7 +188,7 @@
       "reference": "front-45",
       "promptRef": "assets/gt70/flow/prompts.md#10--final",
       "poster": "/videos/gt70/final/poster.webp",
-      "posterAlt": "YADEA GT70 electric scooter in Starry Black, centred front three-quarter hero composition.",
+      "posterAlt": "YADEA GT70 Cyber electric scooter in Starry Black, centred front three-quarter hero composition.",
       "thumbnail": "/videos/gt70/final/thumbnail.webp",
       "note": "Final frame must hold still long enough to cross-fade into the CTA copy."
     }

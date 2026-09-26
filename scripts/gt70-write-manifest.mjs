@@ -16,7 +16,7 @@
  * --check validates and compares without writing, for use in CI.
  */
 
-import { existsSync, readFileSync, writeFileSync } from "node:fs";
+import { existsSync, readdirSync, readFileSync, writeFileSync } from "node:fs";
 import { resolve, dirname, join } from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -87,15 +87,26 @@ for (const clip of manifest.clips) {
   }
 }
 
-// Every folder under public/videos/gt70 should be represented in the manifest,
-// otherwise the published layout and the manifest disagree.
-if (existsSync(join(root, "public", "videos", "gt70"))) {
+// Every directory under public/videos/gt70 must be represented in the manifest,
+// otherwise the published layout and the manifest disagree. This has to walk
+// the disk rather than the manifest: iterating the manifest and asking whether
+// each id is in the manifest can never fail.
+const PUBLIC_ROOT = join(root, "public", "videos", "gt70");
+if (existsSync(PUBLIC_ROOT)) {
   const ids = new Set(manifest.clips.map((c) => c.id));
+  for (const entry of readdirSync(PUBLIC_ROOT, { withFileTypes: true })) {
+    if (!entry.isDirectory()) continue;
+    if (!ids.has(entry.name)) {
+      warnings.push(
+        `directory "${entry.name}" exists on disk but has no manifest entry`,
+      );
+    }
+  }
   for (const clip of manifest.clips) {
-    if (clip.id === "hero") continue;
-    const dir = join(root, "public", "videos", "gt70", clip.id);
-    if (existsSync(dir) && !ids.has(clip.id)) {
-      warnings.push(`directory "${clip.id}" exists on disk but has no manifest entry`);
+    if (!existsSync(join(PUBLIC_ROOT, clip.id))) {
+      warnings.push(
+        `clip "${clip.id}" has no directory under public/videos/gt70 (reserved slot)`,
+      );
     }
   }
 }

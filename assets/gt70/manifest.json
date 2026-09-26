@@ -90,7 +90,7 @@
       "qc": null
     },
     {
-      "id": "detail",
+      "id": "design",
       "chapter": "Design",
       "role": "background",
       "status": "pending",
@@ -98,10 +98,24 @@
       "source": null,
       "processed": null,
       "mobile": null,
-      "poster": "public/videos/gt70/detail/poster.webp",
-      "thumbnail": "assets/gt70/thumbnails/detail-thumb.webp",
+      "poster": "public/videos/gt70/design/poster.webp",
+      "thumbnail": "assets/gt70/thumbnails/design-thumb.webp",
       "qc": null,
-      "note": "Held back from the homepage by design - the design chapter stays static per the brief's video-budget rule."
+      "note": "Renamed from 'detail' so the id matches its chapter and the public manifest. Held back from the homepage by design - the design chapter stays static per the brief's video-budget rule."
+    },
+    {
+      "id": "side-profile",
+      "chapter": "Side profile",
+      "role": "background",
+      "status": "pending",
+      "reference": "side-180",
+      "source": null,
+      "processed": null,
+      "mobile": null,
+      "poster": null,
+      "thumbnail": null,
+      "qc": null,
+      "note": "Reserved slot. No frames supplied yet, so no poster exists. Deliberately left unrenderable rather than given a fabricated still."
     },
     {
       "id": "urban",
@@ -145,6 +159,20 @@
       "note": "Held back from the homepage by design - the electric chapter stays static per the brief's video-budget rule."
     },
     {
+      "id": "smart",
+      "chapter": "Smart features",
+      "role": "background",
+      "status": "pending",
+      "reference": "front-45",
+      "source": null,
+      "processed": null,
+      "mobile": null,
+      "poster": null,
+      "thumbnail": null,
+      "qc": null,
+      "note": "Reserved slot. No frames supplied yet. Any smart-feature copy must be limited to features YADEA actually publishes for this model."
+    },
+    {
       "id": "night",
       "chapter": "Evening",
       "role": "background",
@@ -175,11 +203,15 @@
     "prompts": "assets/gt70/flow/prompts.md",
     "normalise": "scripts/gt70-normalize.mjs",
     "qc": "scripts/gt70-video-qc.mjs",
-    "siteManifest": "src/content/gt70Videos.ts",
+    "manifest": "src/content/gt70Videos.json",
+    "manifestTypes": "src/content/gt70Videos.ts",
+    "manifestWriter": "scripts/gt70-write-manifest.mjs",
+    "publicManifest": "public/videos/gt70/manifest.json",
     "rawDir": "assets/gt70/flow/raw",
     "approvedDir": "assets/gt70/flow/approved",
     "rejectedDir": "assets/gt70/flow/rejected",
-    "processedDir": "assets/gt70/processed/30fps"
+    "processedDir": "assets/gt70/processed/30fps",
+    "note": "src/content/gt70Videos.json is the single source of clip truth; the public manifest is generated from it. This file is production provenance only and is not read by the app."
   },
   "verification": {
     "pipelineSelfTest": "pass",

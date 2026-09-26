@@ -86,7 +86,7 @@ export default function Gt70Page() {
           </Reveal>
 
           <Reveal className="mt-14">
-            <dl className="grid gap-x-8 gap-y-6 border-t border-line-2 pt-8 sm:grid-cols-3">
+            <dl className="grid gap-x-8 gap-y-6 border-t border-line-2 pt-8 sm:grid-cols-2 lg:grid-cols-4">
               <div>
                 <dt className="label-tech">Published price</dt>
                 <dd className="num-hero mt-2 text-[1.75rem] leading-none text-electric-700">
@@ -94,19 +94,28 @@ export default function Gt70Page() {
                 </dd>
               </div>
               <div>
-                <dt className="label-tech">Category</dt>
-                <dd className="mt-2 text-[1.0625rem] font-medium text-ink">{model.category}</dd>
+                <dt className="label-tech">Range</dt>
+                <dd className="num-hero mt-2 text-[1.75rem] leading-none text-ink">
+                  {model.headline.range}
+                </dd>
               </div>
               <div>
-                <dt className="label-tech">Official sources</dt>
-                <dd className="mt-2 text-[1.0625rem] font-medium text-ink">
-                  Product page + complete review
+                <dt className="label-tech">Top speed</dt>
+                <dd className="num-hero mt-2 text-[1.75rem] leading-none text-ink">
+                  {model.headline.speed}
+                </dd>
+              </div>
+              <div>
+                <dt className="label-tech">Battery</dt>
+                <dd className="num-hero mt-2 text-[1.75rem] leading-none text-ink">
+                  {model.headline.battery}
                 </dd>
               </div>
             </dl>
-            <p className="mt-5 text-xs leading-relaxed text-ink-4">
-              Price and category as published by YADEA Pakistan. The dedicated YADEA product page
-              for this model is not published, so no further figures are asserted here.
+            <p className="mt-5 max-w-[68ch] text-xs leading-relaxed text-ink-4">
+              Every figure above is published by YADEA Pakistan across the product page and
+              the complete review. The product page carries no price and the review notes it
+              may vary, so confirm current pricing with an authorised dealer.
             </p>
           </Reveal>
         </div>
@@ -122,11 +131,12 @@ export default function Gt70Page() {
                 <Reveal>
                   <LabelledRule label="01 · The look" />
                   <h2 id="gt70-look-title" className="display-lg mt-5 max-w-[18ch] text-ink">
-                    Starry Black, with orange graphics.
+                    Starry Black or Turbo Orange.
                   </h2>
                   <p className="body-lg mt-5 max-w-[48ch] text-ink-2">
-                    A deep black finish with the orange accent graphics that make the GT70
-                    recognisable from across a car park. Scroll to walk around it.
+                    YADEA publishes two colours for the GT70 Cyber: Starry Black and Turbo
+                    Orange. The scooter shown here is the Starry Black variant. Scroll to
+                    walk around it.
                   </p>
                 </Reveal>
               </div>
@@ -158,9 +168,10 @@ export default function Gt70Page() {
               Angular bodywork, upright riding position.
             </h2>
             <p className="body-lg mt-5 max-w-[52ch] text-ink-2">
-              The published review describes a full-size electric scooter with a wide LED
-              instrument panel and a step-through frame. YADEA has not published the panel size,
-              seat height or any dimensional figures for this model, so none are given here.
+              YADEA describes the GT70 Cyber as a cyber-punk-styled premium electric scooter
+              with an exoskeleton frame and an ergonomic dual-texture seat. It publishes the
+              panel as a high-resolution display — the same page calls it LED in one heading
+              and TFT in its body copy — so no panel type, size or seat height is asserted here.
             </p>
           </Reveal>
         </div>
@@ -174,7 +185,7 @@ export default function Gt70Page() {
               index="03"
               eyebrow="Verified facts"
               title="Everything YADEA publishes — and everything it does not"
-              lede="Two official YADEA sources cover this model: the product page and a complete review. Between them they yield one hard number. Rather than fill the gaps from a similar model, each unlisted item is marked explicitly."
+              lede="Two official YADEA sources cover this model: the product page and a complete review. Between them they publish a full specification set. Anything they leave out is marked explicitly rather than filled in from a similar model."
             />
           </Reveal>
 
@@ -183,8 +194,46 @@ export default function Gt70Page() {
               <h3 className="display-sm mb-4 text-ink">Published</h3>
               <dl>
                 <SpecRow label="Price" value={model.price ? formatPKR(model.price) : <NotPublished />} />
-                <SpecRow label="Category" value={model.category} />
-                <SpecRow label="Model name" value={model.name} />
+                <SpecRow label="Top speed" value={model.topSpeed ? `${model.topSpeed} km/h` : <NotPublished />} />
+                <SpecRow
+                  label="Range"
+                  value={model.range ? model.range.note ?? `${model.range.value} ${model.range.unit}` : <NotPublished />}
+                />
+                <SpecRow
+                  label="Battery"
+                  value={
+                    model.battery.capacity
+                      ? `${model.battery.capacity} ${model.battery.chemistry ?? ""}`.trim()
+                      : <NotPublished />
+                  }
+                />
+                <SpecRow
+                  label="Motor"
+                  value={
+                    model.motor.ratedPower
+                      ? `${model.motor.ratedPower} rated, ${model.motor.torque ?? "torque not published"}`
+                      : <NotPublished />
+                  }
+                />
+                <SpecRow label="Charging time" value={model.battery.chargingTime ?? <NotPublished />} />
+                <SpecRow
+                  label="Colours"
+                  value={model.colors?.length ? model.colors.join(" · ") : <NotPublished />}
+                />
+                <SpecRow
+                  label="Dimensions"
+                  value={
+                    model.dimensions.find((d) => /length/i.test(d.label))?.value ?? <NotPublished />
+                  }
+                />
+                <SpecRow
+                  label="Ground clearance"
+                  value={model.dimensions.find((d) => /clearance/i.test(d.label))?.value ?? <NotPublished />}
+                />
+                <SpecRow
+                  label="Weight (empty)"
+                  value={model.dimensions.find((d) => /weight/i.test(d.label))?.value ?? <NotPublished />}
+                />
                 <SpecRow
                   label="Published review"
                   value={review ? <span className="text-electric-700">Yes — 15 Sep 2026</span> : <NotPublished />}
@@ -195,16 +244,26 @@ export default function Gt70Page() {
             <Reveal>
               <h3 className="display-sm mb-4 text-ink">Not published by YADEA</h3>
               <dl>
-                <SpecRow label="Top speed" value={<NotPublished />} />
-                <SpecRow label="Range" value={<NotPublished />} />
-                <SpecRow label="Battery chemistry / capacity" value={<NotPublished />} />
-                <SpecRow label="Charging time" value={<NotPublished />} />
-                <SpecRow label="Motor power / torque" value={<NotPublished />} />
-                <SpecRow label="Colours" value={<NotPublished />} />
-                <SpecRow label="Dimensions" value={<NotPublished />} />
+                <SpecRow label="Battery warranty" value={<NotPublished />} />
+                <SpecRow label="Instrument panel type" value={<NotPublished />} />
+                <SpecRow label="Display size" value={<NotPublished />} />
+                <SpecRow label="Seat height" value={<NotPublished />} />
+                <SpecRow label="0–xx km/h acceleration" value={<NotPublished />} />
+                <SpecRow label="IP / water-resistance rating" value={<NotPublished />} />
+                <SpecRow label="Stock and delivery timeline" value={<NotPublished />} />
               </dl>
             </Reveal>
           </div>
+
+          <Reveal className="mt-8">
+            <p className="body-md max-[62ch] text-ink-3">
+              One conflict is recorded rather than resolved: the product page heads its
+              display section “high-resolution LED” while the body copy on the same page
+              describes a high-resolution TFT screen, so the panel type is left unstated
+              here. The product page also publishes no price — the PKR figure comes from
+              the review, which notes it may vary.
+            </p>
+          </Reveal>
 
           <Reveal className="mt-12">
             <div className="rounded-card border border-line-2 bg-paper-2 p-6 sm:p-8">
